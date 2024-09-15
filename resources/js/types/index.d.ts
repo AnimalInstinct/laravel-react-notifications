@@ -10,3 +10,15 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
 };
+
+export type Notification = {
+    id: number,
+    title: string,
+    message: string,
+    created_at: DateTime
+}
+
+export type NotificationFormFields = {
+    title: string,
+    message: string
+}

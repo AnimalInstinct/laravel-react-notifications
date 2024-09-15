@@ -24,7 +24,10 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
+                                    Панель управления
+                                </NavLink>
+                                <NavLink href={route('notifications.index')} active={route().current('notifications.index')}>
+                                    Уведомления
                                 </NavLink>
                             </div>
                         </div>
@@ -110,7 +113,10 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                                Выход
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('notifications.index')} active={route().current('notifications.index')}>
+                                Уведомления
                             </ResponsiveNavLink>
                         </div>
                     </div>
