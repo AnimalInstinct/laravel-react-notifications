@@ -27,6 +27,7 @@ export default function NotificationForm() {
                 placeholder="Название уведомления"
                 onChange={(e) => setData("title", e.target.value)}
             />
+            <InputError message={errors.title} className="mt-2" />
             <textarea
                 value={data.message}
                 placeholder="Напишите текст уведомления"

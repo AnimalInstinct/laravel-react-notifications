@@ -37,6 +37,7 @@ export default function EditNotificationForm(props: Props) {
                 placeholder="Название уведомления"
                 onChange={(e) => setData("title", e.target.value)}
             />
+            <InputError message={errors.title} className="mt-2" />
             <textarea
                 value={data.message}
                 onChange={(e) => setData("message", e.target.value)}

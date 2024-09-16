@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NotificationUpdateRequest;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -22,7 +23,7 @@ class NotificationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(NotificationUpdateRequest $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:240',
@@ -37,7 +38,7 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Notification $notification)
+    public function update(NotificationUpdateRequest $request, Notification $notification)
     {
         Gate::authorize('update', $notification);
 
@@ -63,6 +64,9 @@ class NotificationController extends Controller
         return redirect(route('notifications.index'));
     }
 
+    /**
+     * Increment the views count of the given notification and return the updated notification as json.
+     */
     public function setShowCounter(Notification $notification)
     {
         $notification->update([
