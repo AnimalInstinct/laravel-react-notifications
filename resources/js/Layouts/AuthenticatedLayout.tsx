@@ -1,16 +1,43 @@
-import { useState, PropsWithChildren, ReactNode } from 'react';
+import { useState, PropsWithChildren, ReactNode, useEffect } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
+import { Notification } from '@/types';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Authenticated({ header, children }: PropsWithChildren<{ header?: ReactNode }>) {
-    const user = usePage().props.auth.user;
+    const page = usePage()
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    const [notifications, setNotifications] = useState<Notification[]>(page.props.notifications as Notification[]);
+
+    useEffect(() => {
+        if (!window) return
+        document.onreadystatechange = function() {
+            if (document.readyState === 'complete') {
+                var callback = function(e: any) {
+                    console.log('notification created::e: ', e);
+                    if (e.notification) {
+                        const newToast = () => toast(e.notification.message, { type: 'success' });
+                        newToast();
+                        setNotifications((prev: Notification[]) => [e.notification, ...prev]);
+                    }
+                }
+
+                window.Echo.private('notification.public')
+                    .listen('NotificationCreated', callback);
+            }
+        }
+    }, []);
+
     return (
+        <>
+        <ToastContainer stacked />
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,7 +68,7 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                {page.props.auth.user.name}
 
                                                 <svg
                                                     className="ms-2 -me-0.5 h-4 w-4"
@@ -60,9 +87,9 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route('profile.edit')}>Профиль</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
+                                            Выход
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -105,9 +132,9 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
                     <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800 dark:text-gray-200">
-                                {user.name}
+                                {page.props.auth.user.name}
                             </div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                            <div className="font-medium text-sm text-gray-500">{page.props.auth.user.email}</div>
                         </div>
 
                         <div className="mt-3 space-y-1">
@@ -131,5 +158,6 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
 
             <main>{children}</main>
         </div>
+        </>
     );
 }

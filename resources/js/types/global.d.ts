@@ -6,6 +6,8 @@ import { PageProps as AppPageProps } from './';
 declare global {
     interface Window {
         axios: AxiosInstance;
+        Echo: Echo;
+        Pusher: Pusher;
     }
 
     var route: typeof ziggyRoute;

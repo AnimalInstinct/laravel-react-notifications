@@ -1,14 +1,12 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { Notification, PageProps } from "@/types";
 import NotificationCard from "@/Components/NotificationCard";
 import NotificationForm from "@/Components/CreateNotificationForm";
 
-export default function Index({
-    notifications,
-}: PageProps<{ notifications: Notification[] }>) {
-    const user = usePage().props.auth.user;
+export default function Index(props: PageProps<{notifications: Notification[], pusherAppKey: string, pusherAppCluster: string }>) {
+    const { notifications } = props
 
     return (
         <AuthenticatedLayout>

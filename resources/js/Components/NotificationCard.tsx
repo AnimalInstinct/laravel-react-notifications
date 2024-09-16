@@ -67,7 +67,7 @@ export default function NotificationCard({
                                 Редактировать
                             </button>
                             <Dropdown.Link as="button" href={route('notifications.destroy', notification.id)} method="delete">
-                                    Delete
+                                    Удалить
                                 </Dropdown.Link>
                         </Dropdown.Content>
                     </Dropdown>

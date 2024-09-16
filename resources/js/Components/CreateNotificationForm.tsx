@@ -20,7 +20,7 @@ export default function NotificationForm() {
     };
 
     return (
-        <form onSubmit={submit}>
+        <form onSubmit={submit} className="space-y-1">
             <input
                 className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                 value={data.title}

@@ -1,0 +1,43 @@
+.toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.toast-enter {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.toast-enter.toast-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-exit {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-exit.toast-exit-active {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Optional: style variations based on type */
+.toast.info {
+    background-color: #e0f7fa;
+    color: #00796b;
+}
+
+.toast.success {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.toast.error {
+    background-color: #fce4ec;
+    color: #d32f2f;
+}
