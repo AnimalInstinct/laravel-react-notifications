@@ -6,6 +6,7 @@
 
 php 8.2
 node 21
+composer
 
 ## Used
 
@@ -16,12 +17,14 @@ Soketi
 ## Installation and run locally with Sail and Docker
 
 ```bash
-git pull 
-cd 
+git clone https://github.com/AnimalInstinct/laravel-react-notifications.git
+cd laravel-react-notifications/
+cp .env.example .env
 composer install
-sail up -d
-sail artisan migrate
-sail artisan key:generate
+./vendor/bin/sail build
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan migrate
+npm i
 npm run build
 ```
 
