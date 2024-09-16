@@ -7,13 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 type Props = {
     notifications: Notification[];
     children: React.ReactNode;
+    showAll?: boolean;
 };
 
-const NotificationsProvider = (props: Props) => {
+const NotificationsProvider = ({children, notifications: propsNotifications, showAll = false}: Props) => {
     const [toastIndex, setToastIndex] = useState(0);
 
     const [notifications, setNotifications] = useState<Notification[]>(
-        (props.notifications as Notification[]) ?? []
+        (propsNotifications as Notification[]) ?? []
     );
 
     const showToast = (notification: Notification) => {
@@ -22,24 +23,16 @@ const NotificationsProvider = (props: Props) => {
                 toast(notification.message, {
                     type: "success",
                     autoClose: 3000,
+                    position: "bottom-right",
                 });
             newToast();
-            setNotifications((prev: Notification[]) => [
-                notification,
-                ...prev,
-            ]);
+            showNotificationCounterUp(notification.id);
         }
     };
 
-    const showCounterIncrease = async (id: number) => {
-        const res = await showNotificationCounterUp(id);
-        console.log("showCounterIncrease::res: ", res);
-    };
-
-    const notificationHandler = (e: { notification: Notification }) => {
-        showToast(e.notification);
-        showCounterIncrease(1);
-    };
+    const notificationHandler = ({notification}:{notification: Notification}) => {
+        notification && showToast(notification);
+    }
 
     useEffect(() => {
         if (!window) return;
@@ -54,14 +47,13 @@ const NotificationsProvider = (props: Props) => {
     }, []);
 
     useEffect(() => {
+        if (!showAll) return;
+
         if (toastIndex < notifications.length) {
             const notification = notifications[toastIndex];
 
             if (notification) {
-                toast(notification.message, {
-                    type: "success",
-                    autoClose: 3000,
-                });
+               showToast(notification);
 
                 const timeoutId = setTimeout(() => {
                     setToastIndex((prevIndex) => prevIndex + 1);
@@ -70,11 +62,12 @@ const NotificationsProvider = (props: Props) => {
                 return () => clearTimeout(timeoutId);
             }
         }
-    }, [toastIndex, notifications]);
+    }, [toastIndex]);
+
     return (
         <div>
             <ToastContainer />
-            {props.children}
+            {children}
         </div>
     );
 };

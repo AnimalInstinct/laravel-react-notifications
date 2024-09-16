@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Log;
 */
 
 Broadcast::channel('notification.public', function ($user) {
-    Log::debug('ROutes::Channels::notification.public: ' . json_encode($user));
     return true;
 });
 

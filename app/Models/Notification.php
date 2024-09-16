@@ -18,5 +18,6 @@ class Notification extends Model
     protected $fillable = [
         'title',
         'message',
+        'views_count'
     ];
 }

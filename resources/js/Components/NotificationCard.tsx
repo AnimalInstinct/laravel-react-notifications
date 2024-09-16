@@ -38,14 +38,23 @@ export default function NotificationCard({
             </svg>
             <div className="flex-1">
                 <div className="flex justify-between items-center">
-                    <div>
+                    <div className="flex items-center gap-2">
                         <span className="text-gray-800">
                             {notification.title}
                         </span>
                         <small className="ml-2 text-sm text-gray-600">
                             {new Date(notification.created_at).toLocaleString()}
                         </small>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7M22.042 12l-1.13-1.13" />
+                        </svg>
+                        <small className="ml-2 text-sm text-gray-600">
+                            {notification.views_count}
+                        </small>
                     </div>
+
                     <Dropdown>
                         <Dropdown.Trigger>
                             <button>

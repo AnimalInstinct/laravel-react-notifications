@@ -9,6 +9,8 @@ const config = {
 
 export const csrf = async () => axios.get(baseURL + "/sanctum/csrf-cookie");
 
+console.log('csrf::baseURL: ', csrf);
+
 export const axios = Axios.create({
     headers: {
         "X-Requested-With": "XMLHttpRequest",

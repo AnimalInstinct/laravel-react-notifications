@@ -1,11 +1,9 @@
-import { post } from "@/utils/axios";
-
 export const showNotificationCounterUp = async (id: number) =>
 {
     try {
-        return post(`/notifications/counter-up/${id}`);
+        return window.axios.post(`/api/notifications/counter-up/${id}`);
     } catch (error) {
-        console.log('Ошибка при увеличении счетчика уведомлений: ', error);
+        console.error('Ошибка при увеличении счетчика уведомлений: ', error);
     }
 }
 

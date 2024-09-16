@@ -62,4 +62,13 @@ class NotificationController extends Controller
 
         return redirect(route('notifications.index'));
     }
+
+    public function setShowCounter(Notification $notification)
+    {
+        $notification->update([
+            'views_count' => $notification->views_count + 1,
+        ]);
+
+        return response()->json($notification);
+    }
 }

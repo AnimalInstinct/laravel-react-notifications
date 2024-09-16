@@ -21,7 +21,7 @@ class NotificationCreated implements ShouldBroadcast
      */
     public function __construct(public Notification $notification)
     {
-        Log::debug('Events\NotificationCreated::construct::notification: ' . json_encode($this->notification));
+        //
     }
 
     /**

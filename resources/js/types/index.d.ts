@@ -16,6 +16,7 @@ export type Notification = {
     title: string,
     message: string,
     created_at: DateTime
+    views_count: number
 }
 
 export type NotificationFormFields = {
